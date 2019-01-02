@@ -14,4 +14,11 @@ class ShortLinkController < ApplicationController
       render json: short_link, status: :created
     end
   end
+
+  def resolve_link
+    short_url = "#{request.protocol}#{request.host_with_port}#{request.fullpath}"
+    short_link = ShortLink.find_by(short_url: short_url)
+
+    redirect_to short_link.long_url, status: :moved_permanently
+  end
 end
