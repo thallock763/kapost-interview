@@ -19,6 +19,10 @@ class ShortLinkController < ApplicationController
     short_url = "#{request.protocol}#{request.host_with_port}#{request.fullpath}"
     short_link = ShortLink.find_by(short_url: short_url)
 
-    redirect_to short_link.long_url, status: :moved_permanently
+    if short_link.present?
+      redirect_to short_link.long_url, status: :moved_permanently
+    else
+      render json: { message: "The URL provided is not valid. Please check the link and sure it is correct" }, status: :not_found
+    end
   end
 end

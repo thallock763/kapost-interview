@@ -46,5 +46,14 @@ RSpec.describe 'Short Link API', type: :request do
         expect(response.headers['Location']).to eq(long_url)
       end
     end
+
+    context 'The short link does not exist in the system' do
+      let(:invalid_short_link) { "2345a" }
+
+      it 'Returns an error indicating that the link does not exist' do
+        get "/#{invalid_short_link}"
+        expect(response).to have_http_status(:not_found)
+      end
+    end
   end
 end
