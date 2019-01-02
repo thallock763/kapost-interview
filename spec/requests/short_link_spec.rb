@@ -19,15 +19,13 @@ RSpec.describe 'Short Link API', type: :request do
     end
 
     context 'A short link already exists for the long url' do
-      before do
-        post '/short_link', params: { long_url: long_url }
-      end
+      let!(:short_link) { create(:short_link) }
 
       it 'Returns the existing short link' do
         post '/short_link', params: { long_url: long_url }
 
         expect(response.content_type).to eq("application/json")
-        expect(response).to have_http_status(:ok)        
+        expect(response).to have_http_status(:ok)
       end
     end
   end
