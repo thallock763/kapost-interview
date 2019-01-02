@@ -19,6 +19,7 @@ Next setup the Rails environment:
 
 ```
 bundle install
+bundle exec rake db:migrate
 ```
 
 Run the tests to make sure everything is working correctly:
