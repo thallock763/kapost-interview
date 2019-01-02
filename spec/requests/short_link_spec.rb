@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Short Link API', type: :request do
   let(:long_url) { "http://www.kapost.com" }
-  let(:short_url_regex) { /#{Regexp.quote(rspec_hostname)}\/\d+/ }
+  let(:short_url_regex) { /#{Regexp.quote(rspec_hostname)}\/[a-zA-Z0-9]+/ }
   let(:rspec_hostname) { "http://www.example.com" }   # RSpec uses www.example.com as the hostname for request specs
 
   describe 'POST /short_link' do

@@ -5,7 +5,7 @@ RSpec.describe ShortLink, type: :model do
   let!(:short_link) { create(:short_link, long_url: long_url) }
 
   describe "generate_link" do
-    let(:short_url_regex) { /http:\/\/localhost:3000\/\d+/ }
+    let(:short_url_regex) { /http:\/\/localhost:3000\/[a-zA-Z0-9]+/ }
     let(:url_prefix) { "http://localhost:3000" }
 
     subject do
