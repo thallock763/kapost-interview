@@ -5,13 +5,12 @@ class ShortLinkController < ApplicationController
     short_link = ShortLink.find_by(long_url: short_link_params[:long_url])
 
     if short_link.present?
-      render json: short_link, status: :ok if short_link.present?
+      render_short_link(short_link, :ok)
     else
       short_link = ShortLink.create(short_link_params)
       short_link.generate_link("#{request.protocol}#{request.host_with_port}")
 
-      short_link = short_link.slice(:short_url, :long_url)
-      render json: short_link, status: :created
+      render_short_link(short_link, :created)
     end
   end
 
@@ -24,5 +23,12 @@ class ShortLinkController < ApplicationController
     else
       render json: { message: "The URL provided is not valid. Please check the link and sure it is correct" }, status: :not_found
     end
+  end
+
+  private
+
+  def render_short_link(short_link, status)
+    short_link = short_link.slice(:short_url, :long_url)
+    render json: short_link, status: status
   end
 end
